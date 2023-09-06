@@ -1,0 +1,23 @@
+SYSTEM_DESCRIPTION='Muonic water molecule'
+
+GEOMETRY
+e-(O)	6-31G		0.0000	0.0000	0.1173   multiplicity=2   addParticles=-1
+e-(H)   6-31G		0.0000	0.7572	-0.4692
+e-(H)   6-31G		0.0000	-0.7572	-0.4692
+u-      13s.ET.O.u.TF 	0.0000	0.0000	0.1173
+O_16    dirac		0.0000	0.0000	0.1173
+H_1     DZSPDN		0.0000	0.7572	0.4692
+H_2     DZSPDN		0.000	-0.7572	-0.4692
+END GEOMETRY
+
+TASKS
+	method = "UHF"
+	propagatorTheoryCorrection=2
+END TASKS
+
+CONTROL
+	iterationScheme=3
+	convergenceMethod=1
+	readCoefficients=F
+	hartreeProductGuess=T
+END CONTROL
