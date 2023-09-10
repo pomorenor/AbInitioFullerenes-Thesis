@@ -33,10 +33,9 @@ def change_coordinates(file_path, atom_line, dx, dy, dz):
 
 path = sys.argv[1]
 increment = float(sys.argv[2])
-step = float(sys.argv[3])
 
 
-dx = increment*step
+dx = increment
 dy = dx
 dz = dx
 
