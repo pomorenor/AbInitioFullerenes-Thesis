@@ -32,9 +32,13 @@ def change_coordinates(file_path, atom_line, dx, dy, dz):
 
 
 path = sys.argv[1]
-dx = float(sys.argv[2])
-dy = float(sys.argv[3])
-dz = float(sys.argv[4])
+increment = float(sys.argv[2])
+step = float(sys.argv[3])
+
+
+dx = increment*step
+dy = dx
+dz = dx
 
 
 path = "/home/linux-pohl-v2/Escritorio/AbInitioFullerenes-Thesis/Calculations/water2.lowdin"
