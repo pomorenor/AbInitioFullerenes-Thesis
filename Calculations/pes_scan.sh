@@ -6,6 +6,7 @@
 
 PYTHONVER="python3"
 LOWDINVER="lowdin2"
+OMIT_ERROR="2>/dev/null"
 
 INPUT="/home/linux-pohl-v2/Escritorio/AbInitioFullerenes-Thesis/Calculations/pes_test.lowdin"
 OUTPUT="/home/linux-pohl-v2/Escritorio/AbInitioFullerenes-Thesis/Calculations/pes_test.out"
@@ -22,7 +23,7 @@ ELINE="4"
 
 for ((ii = 0; ii < $NUMSTEPS; ++ii)); do
 	$PYTHONVER $CHCOOR $INPUT $ALINE $ELINE $DX $DY $DZ
-	$LOWDINVER -i $INPUT
+	$LOWDINVER -i $INPUT 2>/dev/null
 	ENERGY=$($PYTHONVER $REENER $OUTPUT)
 	echo $ENERGY
 done
