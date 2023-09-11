@@ -1,0 +1,11 @@
+SYSTEM_DESCRIPTION='First test for a pes scan using the bash script'
+GEOMETRY 
+e-(H)   6-31G		20.399999999999963	0.0	0.0
+e-(H)   6-31G		0.0000	-0.7572	-0.4692
+H_1     dirac		20.399999999999963	0.0	0.0
+H_2     dirac		0.000	-0.7572	-0.4692
+END GEOMETRY
+TASKS
+	method = "RHF"
+	propagatorTheoryCorrection=2
+END TASKS
