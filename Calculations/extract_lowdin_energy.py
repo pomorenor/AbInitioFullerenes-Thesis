@@ -1,6 +1,6 @@
 import sys
 
-def explore_output(file_path, word = "TOTAL ENERGY ="):
+def explore_output(file_path, word = "Fixed potential energy    ="):
     TE = 0.0
     with open(file_path, 'r') as file:
         lines = file.readlines()
