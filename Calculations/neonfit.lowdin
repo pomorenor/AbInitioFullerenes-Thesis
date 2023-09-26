@@ -3,8 +3,7 @@ SYSTEM_DESCRIPTION='First test for a pes scan using the bash script'
 GEOMETRY 
 e-(H)   STO-3G		0.0	0.0	0.0
 e-(H)   STO-3G		0.0	0.0	0.0
-H     dirac		0.0	0.0	0.0
-H     dirac		0.0	0.0	0.0
+Ne     dirac		0.0	0.0	0.0
 END GEOMETRY
 
 TASKS
