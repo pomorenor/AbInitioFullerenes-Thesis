@@ -1,0 +1,77 @@
+
+&LowdinParameters
+	LowdinParameters_readCoefficients =.F. 
+	LowdinParameters_units ="ANGS" 
+	LowdinParameters_totalEnergyTolerance =1E-10 
+	LowdinParameters_scfGlobalMaxIterations =10000 
+/
+
+&InputTasks
+	InputTasks_method = "UHF"
+/
+
+&InputParticle
+	InputParticle_name = "HEA3"
+	InputParticle_basisSetName = "HE-1S1P1D"
+	InputParticle_mass = 5497.88405663
+	InputParticle_origin = 5.364473176000E-01 9.787585202000E-01 -1.445500395000E-01 
+/
+
+&InputParticle
+	InputParticle_name = "HEA3"
+	InputParticle_basisSetName = "HE-1S1P1D"
+	InputParticle_mass = 5497.88405663
+	InputParticle_origin = -1.098831613400E+00 0.000000000000E+00 2.775227265000E-01 
+/
+
+&InputParticle
+	InputParticle_name = "HEB3"
+	InputParticle_basisSetName = "HE-1S1P1D"
+	InputParticle_mass = 5497.88405663
+	InputParticle_origin = 5.364473176000E-01 -9.787585202000E-01 -1.445500395000E-01 
+/
+
+&InputSystem
+	InputSystem_numberOfParticles = 3
+	InputSystem_numberOfExternalPots =  2
+	InputSystem_numberOfInterPots =  3
+	InputSystem_numberOfLJCenters =  0
+	InputSystem_numberOfOutputs =  1
+	InputSystem_numberOfSpeciesInCI =  0
+
+/
+
+&ExternalPot
+	ExternalPot_name = "HE2C60-IH-1P"
+	ExternalPot_specie =  "HEA3" 
+/
+
+&ExternalPot
+	ExternalPot_name = "HE2C60-IH-1P"
+	ExternalPot_specie =  "HEB3" 
+/
+
+&InterPot
+	InterPot_name = "HE2C60-IH-2P"
+	InterPot_specie =  "HEA3"
+	InterPot_otherSpecie = "HEA3" 
+/
+
+&InterPot
+	InterPot_name = "HE2C60-IH-2P"
+	InterPot_specie =  "HEA3"
+	InterPot_otherSpecie = "HEB3" 
+/
+
+&InterPot
+	InterPot_name = "HE2C60-IH-2P"
+	InterPot_specie =  "HEB3"
+	InterPot_otherSpecie = "HEB3" 
+/
+
+&Output
+	Output_cubeSize =  10.0
+	Output_state = 1
+	Output_point1 = 0.000000000000E+00 0.000000000000E+00 0.000000000000E+00 
+	Output_type = "densityCube" 
+/

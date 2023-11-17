@@ -1,0 +1,25 @@
+at  [3.8187] energy is 0.024347571523
+at  [3.8187] gradient is [-0.00060349]
+at  [3.81930349] energy is 0.024347207467
+at  [3.81930349] gradient is [-0.000603]
+at  [3.82171747] energy is 0.024345754196
+at  [3.82171747] gradient is [-0.00060105]
+at  [3.83137336] energy is 0.024339988232
+at  [3.83137336] gradient is [-0.00059325]
+at  [3.86999695] energy is 0.024317667524
+at  [3.86999695] gradient is [-0.00056272]
+at  [4.02449128] energy is 0.024239626435
+at  [4.02449128] gradient is [-0.00044995]
+at  [4.50909648] energy is 0.024092697264
+at  [4.50909648] gradient is [-0.00017338]
+at  [4.81289167] energy is 0.024060415154
+at  [4.81289167] gradient is [-4.36795e-05]
+Optimization terminated successfully.
+         Current function value: 0.024060
+         Iterations: 3
+         Function evaluations: 8
+         Gradient evaluations: 8
+at  [4.81289167] energy is 0.024060415154
+final values  [4.81289167]
+final energy  0.024060415154
+final gradient  [-4.36795e-05]

@@ -13,6 +13,18 @@ RX3=`gawk ' ($1~/^X7$/ ){print $2} '  $1`
 RY3=`gawk ' ($1~/^X8$/ ){print $2} '  $1` 
 RZ3=`gawk ' ($1~/^X9$/ ){print $2} '  $1` 
 
+
+#RX1=`gawk ' ($1~/^X1$/ ){print $2} '  $1` 
+#RY1=`gawk ' ($1~/^X2$/ ){print $2} '  $1` 
+#RZ1=`gawk ' ($1~/^X3$/ ){print $2} '  $1` 
+#RX2= $RX1 
+#RY2=`gawk ' ($1~/^X5$/ ){print $2} '  $1` 
+#RZ2= $RZ1
+#RX3= $RX1 
+#RY3=($RY1 + $RY2)/2 
+#RZ3=`gawk ' ($1~/^X9$/ ){print $2} '  $1` 
+
+
 exp1S=1000000
 N=1
 
@@ -33,7 +45,9 @@ $N
 $exp1S 1.0
 EOF
 
-cp HE-INF ~/.lowdin2/lib/basis/
+#cp HE-INF ~/.lowdin2/lib/basis/
+cp HE-INF /home/linux-pohl-v2/Escritorio/LOWDIN2/openLOWDIN/lib/basis
+
 
 cat > $name.lowdin <<EOF
 GEOMETRY

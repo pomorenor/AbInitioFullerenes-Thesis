@@ -1,0 +1,35 @@
+GEOMETRY
+HEA3  HE-1S1P1D   0.5364473176 0.9787585202 -0.1445500395 m=5497.88405663 
+HEA3  HE-1S1P1D   -1.0988316134 0.0000000000 0.2775227265 m=5497.88405663 
+HEB3  HE-1S1P1D   0.5364473176 -0.9787585202 -0.1445500395 m=5497.88405663 
+END GEOMETRY
+
+TASKS
+	method = "UHF"
+END TASKS
+
+CONTROL
+	readCoefficients=.F.
+	units="ANGS"
+	totalEnergyTolerance=1E-10
+	scfGlobalMaxIterations=10000
+	numberOfPointsPerDimension=50 !50 puntos en x, 50 en y, 50 en z para el cubo
+END CONTROL
+
+EXTERPOTENTIAL
+	HEA3   HE2C60-IH-1P
+	HEB3   HE2C60-IH-1P
+END EXTERPOTENTIAL
+
+INTERPOTENTIAL
+	HEA3 HEA3	HE2C60-IH-2P
+	HEA3 HEB3	HE2C60-IH-2P
+	HEB3 HEB3	HE2C60-IH-2P
+END INTERPOTENTIAL
+
+!cubeSize: Tamaño del cubo en unidades atomicas
+!point1: centro del cubo en las unidades del input (Bohr o Angs)
+
+OUTPUTS
+ 	densityCube cubeSize=10.0 state=1 point1=0.0 0.0 0.0
+END OUTPUTS

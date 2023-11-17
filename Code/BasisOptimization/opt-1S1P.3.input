@@ -1,0 +1,11 @@
+script opt-1S1P.3.sh
+NumVariables 2
+limit 1E-6
+Method HF
+X1 4.81289167 0.001
+X2 3.8185 0.001
+
+
+
+
+
