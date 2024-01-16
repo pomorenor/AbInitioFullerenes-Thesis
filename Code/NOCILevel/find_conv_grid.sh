@@ -14,12 +14,14 @@ FILENAME="He3-C60-1S-NOCI"
 
 #echo $FILENAME"_""2""_gridpoints"".lowdin"
 
+REGISTERFILE="home/pmorenor/Desktop/AbInitioFullerenes-Thesis/Code/NOCILevel/GRIDENERGIES.txt"
+
 for i in ${grids[@]}; do
 	$PYTHONVER $CHANGEGRID $ORIGINALFILE $LINENUM $i
 	NEWFILENAME=$FILENAME"_"$i"_gridpoints.lowdin"
 	$LOWDINVER -i $NEWFILENAME 
 	OUTPUTNAME=$FILENAME"_"$i"_gridpoints.out"	
-	$PYTHONVER $EXTRACTENERGY $OUTPUTNAME
+	$PYTHONVER $EXTRACTENERGY $OUTPUTNAME $REGISTERFILE $i
 done 	
 
 
