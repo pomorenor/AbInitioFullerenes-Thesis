@@ -8,7 +8,7 @@ CHANGEGRID="change_lebedev_grid.py"
 EXTRACTENERGY="extract_lowdin_energy.py"
 LINENUM="18"
 
-grids=(26 38 50 74 86 110 146 170 194 230)
+grids=(26 38 50 74 86 110 146)
 
 FILENAME="He3-C60-1S-NOCI"
 
@@ -18,9 +18,8 @@ REGISTERFILE="GRIDENERGIES.txt"
 
 for i in ${grids[@]}; do
 	$PYTHONVER $CHANGEGRID $ORIGINALFILE $LINENUM $i
-	$LOWDINVER -i $FILENAME"_"$i"_gridpoints.lowdin" 
-	#OUTPUTNAME=$FILENAME"_"$i"_gridpoints.out"	
-	#$PYTHONVER $EXTRACTENERGY $OUTPUTNAME $REGISTERFILE $i
+	$LOWDINVER -i $FILENAME"_"$i"_gridpoints.lowdin" 	
+	$PYTHONVER $EXTRACTENERGY $FILENAME"_"$i"_gridpoints.out" $REGISTERFILE $i
 done 	
 
 
