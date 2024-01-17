@@ -8,7 +8,7 @@ CHANGEGRID="change_lebedev_grid.py"
 EXTRACTENERGY="ELE.py"
 LINENUM="18"
 
-grids=(26 38 50 74 86 110 146)
+grids=(26 38 50 74 86 110 146 170 194 230)
 
 FILENAME="He3-C60-1S-NOCI"
 
