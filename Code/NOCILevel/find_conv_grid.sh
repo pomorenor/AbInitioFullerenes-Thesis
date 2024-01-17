@@ -5,7 +5,7 @@ LOWDINVER="lowdin2"
 
 ORIGINALFILE="He3-C60-1S-NOCI.lowdin"
 CHANGEGRID="change_lebedev_grid.py"
-EXTRACTENERGY="extract_lowdin_energy.py"
+EXTRACTENERGY="ELE.py"
 LINENUM="18"
 
 grids=(26 38 50 74 86 110 146)
