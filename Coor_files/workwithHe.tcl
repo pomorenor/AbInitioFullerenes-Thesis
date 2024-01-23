@@ -3,7 +3,7 @@ set helium_indices [$heliums get index]
 set geomCenter {0.0 0.0 0.0}
 
 foreach atom_index $helium_indices {
-	set distance [measure vecdist $atom_index]
+	set distance [measure vecdist $atom_index $geomCenter]
 	puts "Atom: $atom_index Distance to point: $distance"
 }
 
