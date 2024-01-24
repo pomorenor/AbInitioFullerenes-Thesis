@@ -2,9 +2,9 @@ SYSTEM_DESCRIPTION='H'
 
 GEOMETRY
 N0 dirac      0.0 0.0 0.0 rotationPoint=1
-HEA3  HE2-1S  2.159 0.0 0.0 rotateAround=1
-HEA3  HE2-1S   0.0 2.159 0.0 rotateAround=1
-HEB3  HE2-1S   0.0 0.0 2.159 rotateAround=1
+HEA3  HE-1S  1.13 0.0 0.0 rotateAround=1
+HEA3  HE-1S   0.0 1.13 0.0 rotateAround=1
+HEB3  HE-1S   0.0 0.0 1.13 rotateAround=1
 END GEOMETRY
 
 TASKS
@@ -13,11 +13,11 @@ TASKS
 END TASKS
 
 CONTROL
-	units="BOHRS"
+	units="ANGS"
 	integralStorage="MEMORY"
 	rotationalScanGrid=50
-	configurationMinPPDistance=3.7
-	configurationMaxPPDistance=3.8
+	configurationMinPPDistance=1.95
+	configurationMaxPPDistance=2.10
 	numberOfCIstates=10
 END CONTROL
 
