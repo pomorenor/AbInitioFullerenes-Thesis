@@ -9,7 +9,7 @@ int main(){
 
 	double r = 1.13;
 
-	for (double ii = M_PI/2; ii < M_PI; ii += 0.2){
+	for (double ii = M_PI/2; ii < M_PI; ii += 0.01){
 		std::cout << ii << "\t" << minDis(r, ii) << "\t" << maxDis(r, ii) << std::endl;
 	}
 
