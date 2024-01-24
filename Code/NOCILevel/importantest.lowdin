@@ -16,8 +16,8 @@ CONTROL
 	units="ANGS"
 	integralStorage="MEMORY"
 	rotationalScanGrid=50
-	configurationMinPPDistance=1.9
-	configurationMaxPPDistance=2.0
+	configurationMinPPDistance=1.95
+	configurationMaxPPDistance=2.10
 	numberOfCIstates=10
 END CONTROL
 
