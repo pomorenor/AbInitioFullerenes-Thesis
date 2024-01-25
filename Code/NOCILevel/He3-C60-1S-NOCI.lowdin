@@ -2,9 +2,9 @@ SYSTEM_DESCRIPTION='H'
 
 GEOMETRY
 N0 dirac      0.0 0.0 0.0 rotationPoint=1
-HEA3  HE-1S  1.13 0.0 0.0 rotateAround=1
-HEA3  HE-1S   0.0 1.13 0.0 rotateAround=1
-HEB3  HE-1S   0.0 0.0 1.13 rotateAround=1
+HEA3  HE-1S   0.5390456966 0.9788282225 -0.1383245163 rotateAround=1
+HEA3  HE-1S   -1.1024884940 0.0 0.2287525853 rotateAround=1
+HEB3  HE-1S   0.5390456966 -0.9788282225 -0.1383245163  rotateAround=1
 END GEOMETRY
 
 TASKS
@@ -15,10 +15,12 @@ END TASKS
 CONTROL
 	units="ANGS"
 	integralStorage="MEMORY"
+	scfGlobalMaxIterations=20000
+	totalEnergyTolerance=1E-12
 	rotationalScanGrid=50
-	configurationMinPPDistance=1.95
-	configurationMaxPPDistance=2.10
-	numberOfCIstates=10
+	configurationMinPPDistance=1.90
+	configurationMaxPPDistance=2.00
+	numberOfCIstates=1000
 END CONTROL
 
 EXTERPOTENTIAL
