@@ -1,6 +1,14 @@
 #include <iostream>
 #include "csv.h"
+#include <vector>
 
+
+
+typedef std::vector<double> positionVector;
+
+struct Atom {
+  positionVector r_i;
+};
 
 int main()
 {
@@ -14,6 +22,12 @@ int main()
   double x;
   double y;
   double z;
+
+  // Here would be anything about the number of atoms
+
+  
+
+
 
   while(in.read_row(x,y,z)){
             std::cout << x << "\t" << y << "\t" << z << std::endl;
