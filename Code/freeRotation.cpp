@@ -59,6 +59,10 @@ int main()
 
   //Now create the position vector for the atoms
 
+
+  // allR is fine, the problem comes ahead
+
+  
   for(int ii = 0; ii < numAtoms; ii++){
     for (int jj = 0; jj <3;  jj++){
       int kk = ii + jj;
@@ -76,15 +80,12 @@ int main()
   }
 
 
-  std::cout << allAtoms[0].r_i[1] << std::endl;
   InertiaTensor I;
 
   computeInertiaTensor(allAtoms, I);
 
-  for(int ii = 0; ii < 3; ++ii){
-    for(int jj = 0; jj < 3; ++jj){
-      std::cout << I[ii][jj] << std::endl;
-    }
+  for(int ii = 0; ii < numAtoms; ++ii){
+    std::cout << allXYZ[ii][0] << "\t" << allXYZ[ii][1] << "\t" << allXYZ[ii][2] << std::endl;
   }
 
   return 0;
