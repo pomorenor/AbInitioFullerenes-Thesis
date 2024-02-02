@@ -70,10 +70,6 @@ int main()
     }
   }
 
-  for(int ii = 0; ii < numAtoms; ii++){
-    std::cout << allXYZ[ii][0] << "\t"  << allXYZ[ii][1] << "\t" << allXYZ[ii][2] << std::endl;
-  }
-
   
   // Now we initialize the atoms
 
@@ -88,8 +84,10 @@ int main()
 
   computeInertiaTensor(allAtoms, I);
 
-  for(int ii = 0; ii < numAtoms; ++ii){
-    std::cout << allXYZ[ii][0] << "\t" << allXYZ[ii][1] << "\t" << allXYZ[ii][2] << std::endl;
+  for(int ii = 0; ii < 3; ii++){
+    for(int jj = 0; jj < 3; jj++){
+      std::cout << I[ii][jj] << std::endl;
+    }
   }
 
   return 0;
