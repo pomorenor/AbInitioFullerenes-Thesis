@@ -2,7 +2,8 @@
 #include "csv.h"
 #include <vector>
 #include <cmath>
-
+#include <armadillo>
+#include <Eigen/Dense>
 
 
 typedef std::vector<double> positionVector;
@@ -20,8 +21,8 @@ class Atom {
       this->mass = mass;
       this->spin = spin;
     }
-    */
-    Atom(positionVector r_i, double mass){
+    */ 
+   Atom(positionVector r_i, double mass){
       this->r_i = r_i;
       this->mass = mass;
     }
@@ -84,11 +85,7 @@ int main()
 
   computeInertiaTensor(allAtoms, I);
 
-  for(int ii = 0; ii < 3; ii++){
-    for(int jj = 0; jj < 3; jj++){
-      std::cout << I[ii][jj] << std::endl;
-    }
-  }
+  
 
   return 0;
 }
