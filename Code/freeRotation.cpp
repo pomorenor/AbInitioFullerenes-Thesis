@@ -2,13 +2,11 @@
 #include "csv.h"
 #include <vector>
 #include <cmath>
-#include <armadillo>
-#include <Eigen/Dense>
+#include <eigen3/Eigen/Dense>
+#include <eigen3/Eigen/Eigenvalues> 
 
 
 typedef std::vector<double> positionVector;
-typedef double InertiaTensor[3][3];
-
 
 class Atom {
   public:
@@ -28,7 +26,7 @@ class Atom {
     }
 };
 
-void computeInertiaTensor(std::vector<Atom> &allAtoms, InertiaTensor &I);
+void computeInertiaTensor(std::vector<Atom> &allAtoms, Eigen::Matrix3d &I);
 
 
 
@@ -81,39 +79,46 @@ int main()
   }
 
 
-  InertiaTensor I;
+  Eigen::Matrix3d I = Eigen::Matrix3d::Zero();
 
   computeInertiaTensor(allAtoms, I);
 
-  
+  //std::cout << I << std::endl;
 
+  // Now we will diagonalize the matrix 
+
+  Eigen::EigenSolver<Eigen::Matrix3d> PrincipalAxis(I);
+  Eigen::Matrix3Xcd D = PrincipalAxis.eigenvalues().asDiagonal();
+
+  std::cout << D << std::endl;   
+  
   return 0;
 }
 
 
 
-void computeInertiaTensor(std::vector<Atom> &allAtoms, InertiaTensor &I)
+void computeInertiaTensor(std::vector<Atom> &allAtoms, Eigen::Matrix3d &I)
 {
   double Temp_01 = 0.0;
   double Temp_02 = 0.0;
   double Temp_12 = 0.0;
     
   for(int ii = 0; ii < 3; ii++){
-    I[0][0] += allAtoms[ii].mass*(std::pow(allAtoms[ii].r_i[1],2) +std::pow(allAtoms[ii].r_i[2],2));
-    I[1][1] += allAtoms[ii].mass*(std::pow(allAtoms[ii].r_i[0],2) +std::pow(allAtoms[ii].r_i[2],2));
-    I[2][2] += allAtoms[ii].mass*(std::pow(allAtoms[ii].r_i[0],2) +std::pow(allAtoms[ii].r_i[1],2));
+    I(0,0) += allAtoms[ii].mass*(std::pow(allAtoms[ii].r_i[1],2) +std::pow(allAtoms[ii].r_i[2],2));
+    I(1,1) += allAtoms[ii].mass*(std::pow(allAtoms[ii].r_i[0],2) +std::pow(allAtoms[ii].r_i[2],2));
+    I(2,2) += allAtoms[ii].mass*(std::pow(allAtoms[ii].r_i[0],2) +std::pow(allAtoms[ii].r_i[1],2));
 
     Temp_01 += allAtoms[ii].mass*allAtoms[ii].r_i[0]*allAtoms[ii].r_i[1];
     Temp_02 += allAtoms[ii].mass*allAtoms[ii].r_i[0]*allAtoms[ii].r_i[2];
     Temp_12 += allAtoms[ii].mass*allAtoms[ii].r_i[1]*allAtoms[ii].r_i[2];
   }
 
-  I[0][1] += -Temp_01;
-  I[0][2] += -Temp_02;
-  I[1][2] += -Temp_12;
+  I(0,1) += -Temp_01;
+  I(0,2) += -Temp_02;
+  I(1,2) += -Temp_12;
 
-  I[1][0] = I[0][1];
-  I[2][0] = I[2][0];
-  I[2][1] = I[1][2];
+  I(1,0) = I(0,1);
+  I(2,0) = I(0,2);
+  I(2,1) = I(1,2);
  
 }
