@@ -89,8 +89,9 @@ int main()
 
   Eigen::EigenSolver<Eigen::Matrix3d> PrincipalAxis(I);
   Eigen::Matrix3Xcd D = PrincipalAxis.eigenvalues().asDiagonal();
+  Eigen::VectorXcd v = PrincipalAxis.eigenvectors().col(0);
 
-  std::cout << D << std::endl;   
+  std::cout << D(0,0) << std::endl;   
   
   return 0;
 }
