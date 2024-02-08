@@ -6,13 +6,13 @@
 #include <eigen3/Eigen/Eigenvalues> 
 
 
-typedef std::vector<double> positionVector;
+typedef std::vector<float> positionVector;
 
 class Atom {
   public:
     positionVector r_i;
-    double mass;
-    double spin;
+    float mass;
+    float spin;
 /*
     Atom(positionVector r_i, double mass, double spin){
       this->r_i = r_i;
@@ -20,10 +20,12 @@ class Atom {
       this->spin = spin;
     }
     */ 
-   Atom(positionVector r_i, double mass){
+   Atom(positionVector r_i, float mass){
       this->r_i = r_i;
       this->mass = mass;
     }
+
+
 };
 
 void computeInertiaTensor(std::vector<Atom> &allAtoms, Eigen::Matrix3d &I);
@@ -36,7 +38,7 @@ int main()
   int numAtoms = 3;
   positionVector  allXYZ[numAtoms]; 
   positionVector allR;
-  std::vector<double> allMasses;
+  std::vector<float> allMasses;
   std::vector<Atom> allAtoms;
   
   io::CSVReader<4, io::trim_chars<' '>, io::double_quote_escape<'	', '\"'>, io::no_comment> in("../Coor_files/csv_optimized3He3.csv");
@@ -47,7 +49,7 @@ int main()
   std::string MASS = "MASS";
 
   in.read_header(io::ignore_extra_column, X, Y, Z, MASS);
-  double x, y, z, mass;
+  float x, y, z, mass;
 
   while(in.read_row(x,y,z, mass)){
             allR.push_back(x);
@@ -100,9 +102,9 @@ int main()
 
 void computeInertiaTensor(std::vector<Atom> &allAtoms, Eigen::Matrix3d &I)
 {
-  double Temp_01 = 0.0;
-  double Temp_02 = 0.0;
-  double Temp_12 = 0.0;
+  float Temp_01 = 0.0;
+  float Temp_02 = 0.0;
+  float Temp_12 = 0.0;
     
   for(int ii = 0; ii < 3; ii++){
     I(0,0) += allAtoms[ii].mass*(std::pow(allAtoms[ii].r_i[1],2) +std::pow(allAtoms[ii].r_i[2],2));
