@@ -6,13 +6,13 @@
 #include <eigen3/Eigen/Eigenvalues> 
 
 
-typedef std::vector<float> positionVector;
+typedef std::vector<double> positionVector;
 
 class Atom {
   public:
     positionVector r_i;
-    float mass;
-    float spin;
+    double mass;
+    double spin;
 /*
     Atom(positionVector r_i, double mass, double spin){
       this->r_i = r_i;
@@ -20,16 +20,17 @@ class Atom {
       this->spin = spin;
     }
     */ 
-   Atom(positionVector r_i, float mass){
+    Atom(positionVector r_i, double mass){
       this->r_i = r_i;
       this->mass = mass;
     }
 
-
 };
 
-void computeInertiaTensor(std::vector<Atom> &allAtoms, Eigen::Matrix3d &I);
 
+
+void computeInertiaTensor(std::vector<Atom> &allAtoms, Eigen::Matrix3d &I);
+void computeRotationalConstants(Eigen::Matrix3Xcd &D, std::vector<double> &rotConstVect);
 
 
 
@@ -38,7 +39,7 @@ int main()
   int numAtoms = 3;
   positionVector  allXYZ[numAtoms]; 
   positionVector allR;
-  std::vector<float> allMasses;
+  std::vector<double> allMasses;
   std::vector<Atom> allAtoms;
   
   io::CSVReader<4, io::trim_chars<' '>, io::double_quote_escape<'	', '\"'>, io::no_comment> in("../Coor_files/csv_optimized3He3.csv");
@@ -49,7 +50,7 @@ int main()
   std::string MASS = "MASS";
 
   in.read_header(io::ignore_extra_column, X, Y, Z, MASS);
-  float x, y, z, mass;
+  double x, y, z, mass;
 
   while(in.read_row(x,y,z, mass)){
             allR.push_back(x);
@@ -80,6 +81,9 @@ int main()
     ii++;
   }
 
+  // We convert to SI
+
+
 
   Eigen::Matrix3d I = Eigen::Matrix3d::Zero();
 
@@ -93,8 +97,19 @@ int main()
   Eigen::Matrix3Xcd D = PrincipalAxis.eigenvalues().asDiagonal();
   Eigen::VectorXcd v = PrincipalAxis.eigenvectors().col(0);
 
-  std::cout << D(0,0) << std::endl;   
+ 
+  std::vector<double> rotConstVect = {0.0,0.0,0.0};
+  computeRotationalConstants(D,rotConstVect);
+
+
+  for(int ii = 0; ii < 3; ii++){
+    std::cout << rotConstVect[ii] << std::endl;
+  }
+
+  //std::cout << D(0,0).real() << std::endl;   
   
+
+
   return 0;
 }
 
@@ -102,9 +117,9 @@ int main()
 
 void computeInertiaTensor(std::vector<Atom> &allAtoms, Eigen::Matrix3d &I)
 {
-  float Temp_01 = 0.0;
-  float Temp_02 = 0.0;
-  float Temp_12 = 0.0;
+  double Temp_01 = 0.0;
+  double Temp_02 = 0.0;
+  double Temp_12 = 0.0;
     
   for(int ii = 0; ii < 3; ii++){
     I(0,0) += allAtoms[ii].mass*(std::pow(allAtoms[ii].r_i[1],2) +std::pow(allAtoms[ii].r_i[2],2));
@@ -125,3 +140,21 @@ void computeInertiaTensor(std::vector<Atom> &allAtoms, Eigen::Matrix3d &I)
   I(2,1) = I(1,2);
  
 }
+
+
+
+void computeRotationalConstants(Eigen::Matrix3Xcd &D, std::vector<double> &rotConstVect)
+{
+  double m_e = 9.109E-31;
+  double M = 1E-10;
+  double hbar = 1.054571817E-34;
+  double c = 29979245800;
+
+  // c is in cm/s 
+
+  for(int ii = 0; ii < 3; ii++){
+    rotConstVect[ii] = hbar/(4*M_PI*c*D(ii,ii).real()*m_e*M*M);
+  }
+
+}
+
