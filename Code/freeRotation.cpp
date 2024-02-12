@@ -3,8 +3,8 @@
 #include <vector>
 #include <cmath>
 #include <eigen3/Eigen/Dense>
-#include <eigen3/Eigen/Eigenvalues> 
-
+#include <eigen3/Eigen/Eigenvalues>
+#include <utility>
 
 typedef std::vector<double> positionVector;
 
@@ -19,7 +19,7 @@ class Atom {
       this->mass = mass;
       this->spin = spin;
     }
-    */ 
+    */
     Atom(positionVector r_i, double mass){
       this->r_i = r_i;
       this->mass = mass;
@@ -31,17 +31,19 @@ class Atom {
 
 void computeInertiaTensor(std::vector<Atom> &allAtoms, Eigen::Matrix3d &I);
 void computeRotationalConstants(Eigen::Matrix3Xcd &D, std::vector<double> &rotConstVect);
+void organizeMatrix(Eigen::Matrix3Xcd &D, Eigen::Matrix3Xcd &I);
 
+double computeKappa(std::vector<double> &rotConstVect);
 
 
 int main()
 {
   int numAtoms = 3;
-  positionVector  allXYZ[numAtoms]; 
+  positionVector  allXYZ[numAtoms];
   positionVector allR;
   std::vector<double> allMasses;
   std::vector<Atom> allAtoms;
-  
+
   io::CSVReader<4, io::trim_chars<' '>, io::double_quote_escape<'	', '\"'>, io::no_comment> in("../Coor_files/csv_optimized3He3.csv");
 
   std::string X = "X";
@@ -64,7 +66,7 @@ int main()
 
   // allR is fine, the problem comes ahead
 
-  
+
   for(int ii = 0; ii < numAtoms; ii++){
     for (int jj = 0; jj <3;  jj++){
       int kk = 3*ii + jj;
@@ -72,7 +74,7 @@ int main()
     }
   }
 
-  
+
   // Now we initialize the atoms
 
   int ii = 0;
@@ -91,23 +93,30 @@ int main()
 
   //std::cout << I << std::endl;
 
-  // Now we will diagonalize the matrix 
+  // Now we will diagonalize the matrix
 
   Eigen::EigenSolver<Eigen::Matrix3d> PrincipalAxis(I);
   Eigen::Matrix3Xcd D = PrincipalAxis.eigenvalues().asDiagonal();
-  Eigen::VectorXcd v = PrincipalAxis.eigenvectors().col(0);
+  //Eigen::VectorXcd v = PrincipalAxis.eigenvectors().col(0);
 
- 
+  // Now we want to sort the eigenalues so we can follow the Ia<Ib<Ic convention
+
+  Eigen::Matrix3Xcd sortedInertiaTensor = Eigen::Matrix3Xcd::Zero(3, 3);
+  organizeMatrix(D, sortedInertiaTensor);
+
+
+
+
+
   std::vector<double> rotConstVect = {0.0,0.0,0.0};
-  computeRotationalConstants(D,rotConstVect);
+  computeRotationalConstants(sortedInertiaTensor,rotConstVect);
 
 
   for(int ii = 0; ii < 3; ii++){
     std::cout << rotConstVect[ii] << std::endl;
   }
 
-  //std::cout << D(0,0).real() << std::endl;   
-  
+  //std::cout << D(0,0).real() << std::endl;
 
 
   return 0;
@@ -120,7 +129,7 @@ void computeInertiaTensor(std::vector<Atom> &allAtoms, Eigen::Matrix3d &I)
   double Temp_01 = 0.0;
   double Temp_02 = 0.0;
   double Temp_12 = 0.0;
-    
+
   for(int ii = 0; ii < 3; ii++){
     I(0,0) += allAtoms[ii].mass*(std::pow(allAtoms[ii].r_i[1],2) +std::pow(allAtoms[ii].r_i[2],2));
     I(1,1) += allAtoms[ii].mass*(std::pow(allAtoms[ii].r_i[0],2) +std::pow(allAtoms[ii].r_i[2],2));
@@ -138,7 +147,7 @@ void computeInertiaTensor(std::vector<Atom> &allAtoms, Eigen::Matrix3d &I)
   I(1,0) = I(0,1);
   I(2,0) = I(0,2);
   I(2,1) = I(1,2);
- 
+
 }
 
 
@@ -150,7 +159,7 @@ void computeRotationalConstants(Eigen::Matrix3Xcd &D, std::vector<double> &rotCo
   double hbar = 1.054571817E-34;
   double c = 29979245800;
 
-  // c is in cm/s 
+  // c is in cm/s
 
   for(int ii = 0; ii < 3; ii++){
     rotConstVect[ii] = hbar/(4*M_PI*c*D(ii,ii).real()*m_e*M*M);
@@ -158,3 +167,28 @@ void computeRotationalConstants(Eigen::Matrix3Xcd &D, std::vector<double> &rotCo
 
 }
 
+void organizeMatrix(Eigen::Matrix3Xcd &D, Eigen::Matrix3Xcd &I)
+{
+  std::vector<double> eigenvalues;
+  for(int ii = 0; ii < 3; ii++){
+    eigenvalues.push_back(D(ii,ii).real());
+  }
+  std::sort(eigenvalues.begin(), eigenvalues.end());
+
+  for(int ii = 0; ii < 3; ii++){
+    I(ii,ii) = eigenvalues[ii];
+  }
+
+  for(int ii = 0; ii < 3; ii++){
+    for(int jj = 0; jj < 3; jj++){
+      std::cout << I(ii,jj) << std::endl;
+    }
+  }
+}
+
+
+double computeKappa(std::vector<double> &rotConstVect)
+{
+  double kappa = (2*rotConstVect[1] - rotConstVect[0] - rotConstVect[2])/(rotConstVect[1]-rotConstVect[2]);
+  return kappa;
+}
