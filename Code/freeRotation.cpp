@@ -116,7 +116,7 @@ int main()
     std::cout << rotConstVect[ii] << std::endl;
   }
 
-  //std::cout << D(0,0).real() << std::endl;
+  std::cout << computeKappa(rotConstVect) << std::endl;
 
 
   return 0;
