@@ -4,7 +4,7 @@
 
 %chk=pseudomolandfullereneopt
 
-#P MP2/aug-cc-pVTZ Opt=CalcFC Units=Angstroms SCF=VeryTight
+#P MP2/aug-cc-pVTZ Opt=verytight Units=Angstroms SCF=VeryTight
 
 Geometry optimization of the fullerene plus pseudomolecule
 
