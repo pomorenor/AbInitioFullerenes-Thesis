@@ -1,0 +1,44 @@
+SYSTEM_DESCRIPTION='H'
+
+GEOMETRY
+N0 dirac      0.0 0.0 0.0 rotationPoint=1
+HEA3  HE-1S1P1D   0.5390456966 0.9788282225 -0.1383245163 rotateAround=1
+HEA3  HE-1S1P1D   -1.1024884940 0.0 0.2287525853 rotateAround=1
+HEA3  HE-1S1P1D   0.5390456966 -0.9788282225 -0.1383245163  rotateAround=1
+END GEOMETRY
+
+TASKS
+	method = "UHF"
+	nonOrthogonalConfigurationInteraction=.T.
+END TASKS
+
+CONTROL
+	units="ANGS"
+	integralStorage="MEMORY"
+	scfGlobalMaxIterations=20000
+	totalEnergyTolerance=1E-12
+	rotationalScanGrid=170
+	configurationMinPPDistance=1.90
+	configurationMaxPPDistance=2.00
+	numberOfCIstates=100
+	CIstatesToPrint=4
+END CONTROL
+
+EXTERPOTENTIAL
+	HEA3   HE2C60-IH-1P
+	HEB3   HE2C60-IH-1P
+END EXTERPOTENTIAL
+
+INTERPOTENTIAL
+	HEA3 HEA3	HE2C60-IH-2P
+	HEA3 HEB3	HE2C60-IH-2P
+	HEB3 HEB3	HE2C60-IH-2P
+END INTERPOTENTIAL
+
+OUTPUTS
+	densityCube cubeSize=6.5 state=1
+	densityCube cubeSize=6.5 state=2
+	densityCube cubeSize=6.5 state=3
+	densityCube cubeSize=6.5 state=4
+END OUTPUTS
+
