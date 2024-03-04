@@ -2,7 +2,7 @@ import sys
 import re 
 import numpy as np
 
-def explore_output(file_path, numrows, word=" Diagonalizing non orthogonal CI Hamiltonian Matrix..."):
+def explore_output(file_path, numrows, outputname, word=" Diagonalizing non orthogonal CI Hamiltonian Matrix..."):
     selected_rows = []
     energies_found = False 
 
@@ -31,12 +31,14 @@ def explore_output(file_path, numrows, word=" Diagonalizing non orthogonal CI Ha
     		clean_rows.append(energy)
 
     # Now we write the energies 
-    with open("NOCI_Energies.txt", "w") as output:
+    with open(outputname, "w") as output:
         for row in clean_rows:
             output.write(row + "\n") 
 
 path = sys.argv[1]
 numrows = sys.argv[2]
+outputname = sys.argv[3]
+
 # path = "/Code/NOCILevel/He3-C60-1S1P1D-170-gridpoints-duplet.out"
 
-explore_output(path, numrows)
+explore_output(path, numrows, outputname)
