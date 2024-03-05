@@ -18,7 +18,7 @@ d_vector energies_oblate_top(d_vector RotConst, int J, std::vector<i_vector> &li
 int main(void)
 {
 
-	int J = 15;
+	int J = 20;
 
 	d_vector rotationalConstants = {2.93472, 2.91684, 1.46296};
 
@@ -28,19 +28,20 @@ int main(void)
 
 
 	list_degeneracies(J, states);
+	d_vector energies = energies_oblate_top(rotationalConstants, J, states);
 
+	std::cout << "J" << "\t" << "k" << "\t"  << "m"  << "\t" << "E[cm-1]"  << std::endl;
 
 	for(int ii = 0; ii < states.size(); ii++){
-		std::cout << states[ii][0] << "\t" << states[ii][1] << "\t"  << states[ii][2]  << "\t" << std::endl;
+		std::cout << states[ii][0] << "\t" << states[ii][1] << "\t"  << states[ii][2]  << "\t" << energies[ii]  << std::endl;
 	}
 
 
-	d_vector energies = energies_oblate_top(rotationalConstants, 15, states);
-
+	/*
 	for(int ii = 0; ii < energies.size(); ii++){
 		std::cout << energies[ii] << std::endl;
 	}
-
+	*/
 
 
 	return 0;
