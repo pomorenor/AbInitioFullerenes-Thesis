@@ -31,7 +31,8 @@ int main(int argc, char* argv[])
 
 
 
-	int J = 20;
+	int J = std::atoi(argv[2]);
+	
 	d_vector rotationalConstants = {2.93472, 2.91684, 1.46296};
 
 	
