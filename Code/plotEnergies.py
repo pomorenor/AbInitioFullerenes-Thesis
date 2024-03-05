@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np 
 import sys
 
-J = sys.argv[1]
+J = int(sys.argv[1])
 data = pd.read_csv("levels.txt", sep="\t")
 energies = data["E[cm-1]"].astype("float")
 #energies_absK = np.unique(energies[2*J+1:])
