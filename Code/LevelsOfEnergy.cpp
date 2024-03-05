@@ -1,50 +1,88 @@
 #include <iostream>
-#include "csv.h"
 #include <vector>
 #include <cmath>
 #include <eigen3/Eigen/Dense>
 #include <eigen3/Eigen/Eigenvalues>
 #include <utility>
-
+#include <string>
+#include <cstring> 
 
 typedef std::vector<double> d_vector;
 typedef std::vector<int> i_vector;
+
 
 void list_degeneracies(int J, std::vector<i_vector> &list_of_states);
 d_vector energies_oblate_top(d_vector RotConst, int J, std::vector<i_vector> &list_of_states);
 
 
 
-int main(void)
+int main(int argc, char* argv[])
 {
 
-	int J = 15;
+	bool flag = true;
 
+	if (strcmp(argv[1], "true") == 0) {
+            flag = true;
+        }
+        else if (strcmp(argv[1], "false") == 0) {
+            flag = false;
+        }	
+
+
+
+
+	int J = std::atoi(argv[2]);
+	
 	d_vector rotationalConstants = {2.93472, 2.91684, 1.46296};
 
+	
+	
+	if (flag) 
+	{
+		std::cout << "J" << "\t" << "k" << "\t"  << "m"  << "\t" << "E[cm-1]"  << std::endl;
+		for(int ii = 0; ii < J+1; ii++){
+			std::vector<i_vector> states;
+			list_degeneracies(ii, states);
+			d_vector energies = energies_oblate_top(rotationalConstants, ii, states);
+
+			for(int ii = 0; ii < states.size(); ii++){
+			std::cout << states[ii][0] << "\t" << states[ii][1] << "\t"  << states[ii][2]  << "\t" << energies[ii]  << std::endl;
+			}
+
+		}
+	}
+		else if (!flag){
+			std::vector<i_vector> states;
+			list_degeneracies(J, states);
+			d_vector energies = energies_oblate_top(rotationalConstants, J, states);
+
+			std::cout << "J" << "\t" << "k" << "\t"  << "m"  << "\t" << "E[cm-1]"  << std::endl;
+
+			for(int ii = 0; ii < states.size(); ii++){
+				std::cout << states[ii][0] << "\t" << states[ii][1] << "\t"  << states[ii][2]  << "\t" << energies[ii]  << std::endl;
+			}	
+		}
+
+
+	/*
 	std::vector<i_vector> states;
-
-
-
-
 	list_degeneracies(J, states);
+	d_vector energies = energies_oblate_top(rotationalConstants, J, states);
 
+	std::cout << "J" << "\t" << "k" << "\t"  << "m"  << "\t" << "E[cm-1]"  << std::endl;
 
 	for(int ii = 0; ii < states.size(); ii++){
-		std::cout << states[ii][0] << "\t" << states[ii][1] << "\t"  << states[ii][2]  << "\t" << std::endl;
+		std::cout << states[ii][0] << "\t" << states[ii][1] << "\t"  << states[ii][2]  << "\t" << energies[ii]  << std::endl;
 	}
 
-
-	d_vector energies = energies_oblate_top(rotationalConstants, 15, states);
-
-	for(int ii = 0; ii < energies.size(); ii++){
-		std::cout << energies[ii] << std::endl;
-	}
-
+	*/
+	
 
 
 	return 0;
 }
+
+
 
 
 void list_degeneracies(int J, std::vector<i_vector> &list_of_states)
