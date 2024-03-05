@@ -1,9 +1,9 @@
 import matplotlib.pyplot as plt 
 import pandas as pd 
 import numpy as np 
+import sys
 
-
-J = 20
+J = sys.argv[1]
 data = pd.read_csv("levels.txt", sep="\t")
 energies = data["E[cm-1]"].astype("float")
 #energies_absK = np.unique(energies[2*J+1:])
@@ -32,9 +32,9 @@ x_NOCI_quartet = [3] * len(energies_NOCI_in_CM_quartet)
 
 fig, ax = plt.subplots()
 ax.scatter(x, energies_absK, s=90000, marker="_", linewidth=2, zorder=3, color = "black")
-#ax.scatter(x_NOCI_duplet, energies_NOCI_in_CM_duplet, s=90000, marker="_", linewidth=2, zorder=3, color = "red")
-#ax.scatter(x_NOCI_quartet, energies_NOCI_in_CM_quartet, s=90000, marker="_", linewidth=2, zorder=3, color = "purple")
+ax.scatter(x_NOCI_duplet, energies_NOCI_in_CM_duplet, s=90000, marker="_", linewidth=2, zorder=3, color = "red")
+ax.scatter(x_NOCI_quartet, energies_NOCI_in_CM_quartet, s=90000, marker="_", linewidth=2, zorder=3, color = "purple")
 ax.grid(axis='y')
 ax.set_ylabel("$\\Delta E  [cm^{-1}]$")
-#	ax.set_ylim([0,10])
+ax.set_ylim([0,500])
 plt.show()
