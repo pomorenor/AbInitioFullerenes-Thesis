@@ -4,7 +4,7 @@
 
 %chk=fullsystemopt
 
-#P MP2/aug-cc-pVTZ Opt=VeryTight Units=Angstroms SCF=VeryTight
+#P MP2/aug-cc-pVTZ Opt Units=Angstroms Symmetry=(follow,pg=D3h)
 
 Geometry optimization with frozen fullerene and free pseudomolecule
 
