@@ -119,6 +119,13 @@ int main()
   std::cout << computeKappa(rotConstVect) << std::endl;
 
 
+  //We want to compute the directions of the principal axes, for this we use the eigenvectors we obtained previously 
+
+
+  std::cout << "The matrix of eigenvectors, V, is:" << std::endl << PrincipalAxis.eigenvectors() << std::endl << std::endl;
+
+
+
   return 0;
 }
 
