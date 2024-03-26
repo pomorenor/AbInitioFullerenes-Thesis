@@ -1,10 +1,10 @@
 #Optimization of 3He3@C60 prior to frequency calculations
-!MP2 cc-pVTZ Opt
+!MP2 6-31G Opt
+%maxcore 6000
 %pal
-nprocs 8
+nprocs 4
 end 
 %SCF
-	HFTyp ROHF
 	MAXITER 1000
 	END
 *xyz 0 1
