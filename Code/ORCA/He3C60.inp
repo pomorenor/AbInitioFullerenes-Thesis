@@ -1,9 +1,10 @@
-#For studying vibrational part of 3He3@C60
-!UHF 6-31G Opt Freq
+#Optimization of 3He3@C60 prior to frequency calculations
+!MP2 cc-pVTZ Opt
 %pal
-nprocs 4
+nprocs 8
 end 
 %SCF
+	HFTyp ROHF
 	MAXITER 1000
 	END
 *xyz 0 1
