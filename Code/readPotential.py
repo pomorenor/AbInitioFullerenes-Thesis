@@ -4,6 +4,7 @@ from mpl_toolkits.mplot3d import Axes3D
 import sys 
 
 
+
 def GTF(r, centers, exponents, coefficients):
 
     N = coefficients.size
@@ -83,13 +84,40 @@ r = np.array([[0, 0, z] for z in np.linspace(0, 2, 40)])
 func = np.array([GTF(ri, centers, exponents, coefficients) for ri in r])
 red_func = np.array([GTF(ri, new_centers, exponents, coefficients) for ri in r])
 
+radPot = np.array([(0.5)*(5495.8851)*(0.001235)**2*ii**2+func[0] for ii in r])
+
+
+
+############################
+#   We fit the rad to gaussians 
+
+
+# chosen exponents
+alphas = np.array([0.001,0.002,0.004,0.008,0.016,0.032,0.064,0.128,0.256,0.512,1,2,3,4,5,6,7,8,9,10,20,30,40,50,100])
+
+# design matrix
+A = np.exp(-np.outer(r[:,2], alphas))
+
+# least squares fit
+c, residuals, rank, s = np.linalg.lstsq(A, radPot[:,2], rcond=None)
+
+origin= [[0,0,0] for i in range(0,len(centers))]
+
+radPotFit = np.array([GTF(ri, origin,alphas, c) for ri in r])
+
+
+
+
+##########################
 plt.plot(r[:,2], func, color = "blue")
-plt.plot(r[:,2], red_func, color = "red")
+#plt.plot(r[:,2], red_func, color = "red")
+plt.scatter(r[:,2], radPot[:,2], color = "orange")
+plt.scatter(r[:,2], radPotFit)
 
 plt.show()
 
 ############################################################
-###Now we will write the new distances to a new potential###
+###Now we will write the new potential to a LOWDIN format
 ############################################################
 
 
@@ -100,10 +128,10 @@ newPotFile = open(new_pot_file_name, 'w')
 
 newPotFile.write(lines[0])
 newPotFile.write(lines[1])
-newPotFile.write(lines[2])
+newPotFile.write("25 \n")
 
-for ii in range(0,num_gaussians):
+for ii in range(0,len(alphas)):
     newPotFile.write(str(ii)+" "+str(angular_momentum[ii])+"\n")
-    newPotFile.write('\t'+str(exponents[ii])+'\t'+str(coefficients[ii])+"\n")
-    newPotFile.write('\t'+str(new_centers[ii][0])+'\t'+str(new_centers[ii][1])+'\t'+str(new_centers[ii][1])+"\n")
+    newPotFile.write('\t'+str(alphas[ii])+'\t'+str(c[ii])+"\n")
+    newPotFile.write('\t'+str(0.0)+'\t'+str(0.0)+'\t'+str(0.0)+"\n")
 
